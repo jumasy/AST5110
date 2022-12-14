@@ -1,0 +1,599 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Hyper diffusive &#8212; AST5110</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Staggered mesh" href="Staggered-mesh.html" />
+    <link rel="prev" title="Examples of hyperbolic numerical schemes" href="Examples-of-hyperbolic-numerical-schemes.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">AST5110</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Home.html">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Wiki
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Discretization.html">
+   Discretization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Introduction-to-PDEs-and-classifications.html">
+   Introduction to PDEs and classifications
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Errors.html">
+   Errors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Stability.html">
+   Stability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Examples-of-hyperbolic-numerical-schemes.html">
+   Examples of hyperbolic numerical schemes
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Hyper diffusive
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Staggered-mesh.html">
+   Staggered mesh
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="Implicit-methods.html">
+   Implicit methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Newton-Raphson-method.html">
+     1. Newton-Raphson method
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Crank-Nicolson-in-Multidimensions.html">
+     2 Crank-Nicolson in Multidimensions (ADI methods)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Super-time-stepping.html">
+     3 Other methods that can relax the stiffness (Super-time stepping or wave methods)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Self-similar-solution-for-parabolic-eq.html">
+     Self similar solution for parabolic equations Moreno-Insertis et al.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Operator-splitting.html">
+   Operator splitting
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercises
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_1a_v0.5.html">
+   Discretization of a function of a single variable. Differentiation through finite differences.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_1b_ext.html">
+   A calculation of the order of convergence when the limit value is unknown
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_1b_v1.5.html">
+   Analytical and numerical calculation of the order of approximation of a derivative calculated through finite differences.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_2a_analytical.html">
+   Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_2b.html">
+   A first example of a numerical simulation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_3a.html">
+   The instability of numerical codes: symptoms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_4a.html">
+   Stabilities and accuracy in time.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_4b.html">
+   Simulation with non-uniform characteristic velocity (Optional - DONT DO IT )
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_5a.html">
+   Space-time partial differential equation: Study of the diffusive equation (implicit methods)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_6a.html">
+   Operator splitting
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/AST5110.wiki/Hyper-diffusive.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#von-neumann-richtmyer-artificial-viscosity">
+   1. von Neumann-Richtmyer artificial viscosity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bifrost-artificial-diffusion">
+   2. Bifrost Artificial diffusion
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sound-waves">
+     2.1 Sound waves
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#fast-waves">
+       2.1.1 Fast waves
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#advection">
+     2.2 Advection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#shocks">
+     2.3 Shocks
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Hyper diffusive</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#von-neumann-richtmyer-artificial-viscosity">
+   1. von Neumann-Richtmyer artificial viscosity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bifrost-artificial-diffusion">
+   2. Bifrost Artificial diffusion
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sound-waves">
+     2.1 Sound waves
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#fast-waves">
+       2.1.1 Fast waves
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#advection">
+     2.2 Advection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#shocks">
+     2.3 Shocks
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="hyper-diffusive">
+<h1>Hyper diffusive<a class="headerlink" href="#hyper-diffusive" title="Permalink to this headline">#</a></h1>
+<p>In any flow, layers move at different velocities, and a fluid’s viscosity arises from the shear stress between the layers that ultimately oppose any applied force. These shear stresses are communicated via collisions between the particles comprising the fluid, and the typical scale of viscosity is, therefore, of order the mean free collisional length <span class="math notranslate nohighlight">\(\lambda\)</span>.
+This scale is usually much smaller than the scales that can be represented on a numerical grid,  <span class="math notranslate nohighlight">\(\lambda &lt;&lt;  \Delta x\)</span> if one desires to model an astrophysical phenomenon of macroscopic size, and an understanding of this limitation is therefore vital to understanding the limitations of numerical modeling.</p>
+<section id="von-neumann-richtmyer-artificial-viscosity">
+<h2>1. von Neumann-Richtmyer artificial viscosity<a class="headerlink" href="#von-neumann-richtmyer-artificial-viscosity" title="Permalink to this headline">#</a></h2>
+<p>We will introduce an artificial viscosity as our dissipation mechanism to achieve smoothness in our numerical solutions. The 1D momentum and energy equations can be written as</p>
+<div class="math notranslate nohighlight">
+\[\rho \left(\frac{Du}{Dt}\right) = F - \left[\frac{\partial (p + Q)}{\partial x}\right]\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[\left(\frac{De}{Dt}\right) + (p+Q)\left[ \frac{D(1/\rho)}{Dt}\right] = q\]</div>
+<p>where <span class="math notranslate nohighlight">\(q\)</span> is the energy input per unit mass from “external” sources (<em>e.g.</em> from radiation, conduction, or joule heating) and <span class="math notranslate nohighlight">\(Q\)</span> is the equivalent viscous pressure given by</p>
+<div class="math notranslate nohighlight">
+\[Q = - \frac{4}{3}\nu'\left(\frac{\partial^2 u}{\partial x^2}\right)\]</div>
+<p>One possibility would be to use a large value of <span class="math notranslate nohighlight">\(\nu\)</span>, chosen such that the artificial <em>mean free path</em> <span class="math notranslate nohighlight">\(\lambda\)</span> would be of order with the grid spacing <span class="math notranslate nohighlight">\(\Delta x\)</span>. This is not a good procedure, however, since the shock thickness, for a given <span class="math notranslate nohighlight">\(\lambda\)</span>, is inversely proportional to its strength, and we would obtain sharp, strong shocks, but weak shocks would be spread over many grid points. In addition, such a large viscosity would spuriously reduce the Reynolds number of the flow in regions devoid of shocks and degrade the overall solution’s quality. Von Neumann and Richtmyer came up with a <em>non-linear</em> artificial viscosity that is large in shocks by very small otherwise. In particular, they use a <span class="math notranslate nohighlight">\(Q\)</span> that is <em>quadratic</em> in the rate of shear:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Q  = \left\{ \begin{array}{rcl}
+        \frac{4}{3}\rho l^2 \left(\frac{\partial u}{\partial x}\right)^2 \, \mathrm{for} \, \frac{\partial u}{\partial x} &lt; 0  \\
+    0 \, \mathrm{for} \, \frac{\partial u}{\partial x} \ge 0
+       \end{array}\right.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\nu\)</span> had dimensions [g cm<span class="math notranslate nohighlight">\(^{-3}\)</span>][cm<span class="math notranslate nohighlight">\(^{2}\)</span>s<span class="math notranslate nohighlight">\(^{-1}\)</span>], <span class="math notranslate nohighlight">\(l\)</span> must have dimensions of length. Typically <span class="math notranslate nohighlight">\(l\)</span> is chosen to be some small multiple of the grid spacing <span class="math notranslate nohighlight">\(\Delta x\)</span>.</p>
+<p>The artificial viscosity, as given by this method, only occurs when the gas is compressed and is zero or very small in regions away from shocks. A large body of computational work has demonstrated that the von Neumann-Richtmyer method gives good results as long as the resulting shock thickness, say 3 to 4 <span class="math notranslate nohighlight">\(\Delta x\)</span>, is not too coarse to permit an accurate representation of other physical processes of interest (<em>e.g.</em> radiation transport).</p>
+<p>Note that the Navier Stokes PDEs are conservative, which needs to be addressed in the numerical scheme, including the artificial diffusion. A constant and large enough diffusion coefficient can keep the conservation but a very high cost of purely resolving the shocks. The numerical scheme above is such that undesirable numerical behavior is prevented only where it is needed.</p>
+</section>
+<section id="bifrost-artificial-diffusion">
+<h2>2. Bifrost Artificial diffusion<a class="headerlink" href="#bifrost-artificial-diffusion" title="Permalink to this headline">#</a></h2>
+<p>Often there is confusion between the diffusive effects from viscosity, heat conduction, and electrical resistivity in real astrophysical systems and the size of the numerical diffusive effects. Consequently, some concepts are necessary to clarify, such as “turbulent diffusion”, artificial diffusion, hyper diffusion, or sub-grid scale diffusion.</p>
+<p>Bifrost uses highly localized diffusivities while retaining the PDE’s original form. Various coefficients from the numerical diffusion are appropriately chosen to conceive a simulation without developing numerical instability being as non-diffusive as possible in those locations that only require very low diffusive effects. The diffusive operator in 1D is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial f}{\partial t} = .... + \frac{\partial}{\partial x}\left[\nu \Delta x (\nu_1 C_{fast} + \nu_2|u| + \nu_3 \Delta x \nabla^1_x u_x) \frac{\partial f}{\partial x} Q\left(\frac{\partial f}{\partial x}\right)\right]\]</div>
+<p>where the quenching factor is as follows.</p>
+<div class="math notranslate nohighlight">
+\[Q(g) = \frac{\frac{\partial}{\partial x}\left(|\frac{\partial g}{\partial x}|\right)}{|g|+\frac{1}{q}\frac{\partial}{\partial x}\left(|\frac{\partial g}{\partial x}|\right)}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\nabla^1_x\)</span> is the first-order gradient in the <span class="math notranslate nohighlight">\(x\)</span> direction. Note the hyper-diffusion is broken down with different terms as follows:</p>
+<section id="sound-waves">
+<h3>2.1 Sound waves<a class="headerlink" href="#sound-waves" title="Permalink to this headline">#</a></h3>
+<p>One type of artifact that we want to eliminate comes from wave speed (phase speed) error which may come from small variations coming from the discretization, which could lead to small-amplitude wave changes. In Bifrost, first of all, the staggered mesh warrants an accuracy at half-grid integer points. However, the truncation error can lead to growth for wavenumbers close to the Nyquist wavenumber. This First term on the right-hand introduces a 4th-order diffusion term that will dampen the wave perturbation. Note that the diffusion coefficient is dimensional.</p>
+<p>As shown by [Nordlund &amp; Gaslgard 1995](missing doc), the hyper-diffusion will effectively damp shorter waves than <span class="math notranslate nohighlight">\(2 \pi \Delta x\)</span>.</p>
+<section id="fast-waves">
+<h4>2.1.1 Fast waves<a class="headerlink" href="#fast-waves" title="Permalink to this headline">#</a></h4>
+<p>Similar to the previous case, we have the same situation with Magneto-acoustic (fast) waves.</p>
+</section>
+</section>
+<section id="advection">
+<h3>2.2 Advection<a class="headerlink" href="#advection" title="Permalink to this headline">#</a></h3>
+<p>Small fluctuations of plasma elements transport (speed) from the advective transport will be dissipated with the second term of the hyperdiffusion. <span class="math notranslate nohighlight">\(\nu_2\)</span> is dimensionless like <span class="math notranslate nohighlight">\(\nu_1\)</span></p>
+</section>
+<section id="shocks">
+<h3>2.3 Shocks<a class="headerlink" href="#shocks" title="Permalink to this headline">#</a></h3>
+<p>The remaining term in the hyper-diffusion ensures that shocks do not generate undesired numerical artifacts in the post-shock plasma.</p>
+<p>This term is the local kinematic viscosity of the order of <span class="math notranslate nohighlight">\(\Delta u_x \Delta x\)</span>. Consequently, this viscosity is much more prominent in shocks than the previous two and localized, i.e., much smaller elsewhere. In other words, the shock viscosity is proportional to the local convergence rate.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./AST5110.wiki"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Examples-of-hyperbolic-numerical-schemes.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Examples of hyperbolic numerical schemes</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Staggered-mesh.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Staggered mesh</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Juan Martinez-Sykora & Avijeet Prasad<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

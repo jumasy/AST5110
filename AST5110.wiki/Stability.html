@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Stability &#8212; AST5110</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples of hyperbolic numerical schemes" href="Examples-of-hyperbolic-numerical-schemes.html" />
+    <link rel="prev" title="Errors" href="Errors.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">AST5110</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Home.html">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Wiki
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Discretization.html">
+   Discretization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Introduction-to-PDEs-and-classifications.html">
+   Introduction to PDEs and classifications
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Errors.html">
+   Errors
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Stability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Examples-of-hyperbolic-numerical-schemes.html">
+   Examples of hyperbolic numerical schemes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Hyper-diffusive.html">
+   Hyper diffusive
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Staggered-mesh.html">
+   Staggered mesh
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="Implicit-methods.html">
+   Implicit methods
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Newton-Raphson-method.html">
+     1. Newton-Raphson method
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Crank-Nicolson-in-Multidimensions.html">
+     2 Crank-Nicolson in Multidimensions (ADI methods)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Super-time-stepping.html">
+     3 Other methods that can relax the stiffness (Super-time stepping or wave methods)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Self-similar-solution-for-parabolic-eq.html">
+     Self similar solution for parabolic equations Moreno-Insertis et al.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Operator-splitting.html">
+   Operator splitting
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercises
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_1a_v0.5.html">
+   Discretization of a function of a single variable. Differentiation through finite differences.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_1b_ext.html">
+   A calculation of the order of convergence when the limit value is unknown
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_1b_v1.5.html">
+   Analytical and numerical calculation of the order of approximation of a derivative calculated through finite differences.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_2a_analytical.html">
+   Preparation of the first numerical solution of a space-time partial differential equation: Study of the advection equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_2b.html">
+   A first example of a numerical simulation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_3a.html">
+   The instability of numerical codes: symptoms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_4a.html">
+   Stabilities and accuracy in time.
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_4b.html">
+   Simulation with non-uniform characteristic velocity (Optional - DONT DO IT )
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_5a.html">
+   Space-time partial differential equation: Study of the diffusive equation (implicit methods)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ex_6a.html">
+   Operator splitting
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/AST5110.wiki/Stability.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#source-term">
+   1. Source term
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advection-term">
+   2. Advection term
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#diffusion-term">
+     3. Diffusion term
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Stability</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#source-term">
+   1. Source term
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advection-term">
+   2. Advection term
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#diffusion-term">
+     3. Diffusion term
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="stability">
+<h1>Stability<a class="headerlink" href="#stability" title="Permalink to this headline">#</a></h1>
+<p>In exercises 2 and 3, we learned that some numerical discretization methods are stable and others are not. To further understand this, let’s introduce von Neumann’s stability analysis.</p>
+<p>The von Neumann analysis is local: Imagine that the coefficients of the different equations are so slowly varying as to be considered constant in space and time. In that case, the independent solutions, or eigenmodes, of the different equations are all of the form:</p>
+<div class="math notranslate nohighlight">
+\[ u^n_j = \xi^n e^{ikj \Delta x}, \tag{1} \]</div>
+<p>where <span class="math notranslate nohighlight">\(k\)</span> is a real spatial wavenumber (which can have any value) and <span class="math notranslate nohighlight">\(\xi = \xi(k)\)</span> is a complex number that depends on <span class="math notranslate nohighlight">\(k\)</span>. The key fact is that the time dependence of a single eigenmode is nothing more than successive integer powers of the complex number <span class="math notranslate nohighlight">\(\xi\)</span>. Therefore, the difference equations are unstable (have exponentially growing modes) if <span class="math notranslate nohighlight">\(|\xi(k)| &gt; 1\)</span> for <em>some</em> <span class="math notranslate nohighlight">\(k\)</span>. The number is called the amplification <em>factor</em> at a given wavenumber <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>Exercise <a class="reference external" href="https://gitlab.com/ast5110_course/ast5110/-/blob/master/ex_4a.ipynb">Ex 4a</a> is meant to deduce the Courant-Friedrichs-Lewy (CFL) condition stability for the FTCS method.</p>
+<p>In the previous section, we classified the PDEs in different ways accordingly, if it is a numerical or mathematical approach. Here we will subclassify the Cauchy problems of PDEs according to their result from applying von Neumann’s stability analysis.</p>
+<p>Let’s consider the following three terms on the right-hand side of this expression:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} = - a\, u - b\,\frac{\partial u}{\partial x} - c\, \frac{\partial^2 u}{\partial x^2} \tag{2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, and <span class="math notranslate nohighlight">\(c\)</span> are constant. The first term on the right-hand side is a source term, the second is an advective term, and the last is a diffusive one. We already deduced the CFL condition in <a class="reference external" href="https://gitlab.com/ast5110_course/ast5110/-/blob/master/ex_4a.ipynb">Ex 4a</a>. Let’s do the same for a source term or a diffusive term:</p>
+<section id="source-term">
+<h2>1. Source term<a class="headerlink" href="#source-term" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} = - S(u) \tag{3}\]</div>
+<p>For instance, for a 2nd order cell-centered scheme, the Courant condition is:</p>
+<div class="math notranslate nohighlight">
+\[dt\, S'(u) \leq 1 \tag{4}\]</div>
+<p>i.e., the Courant condition for the source term in expression (2) is:</p>
+<div class="math notranslate nohighlight">
+\[dt\, a \leq 1 \tag{5}\]</div>
+</section>
+<section id="advection-term">
+<h2>2. Advection term<a class="headerlink" href="#advection-term" title="Permalink to this headline">#</a></h2>
+<p>See <a class="reference external" href="https://gitlab.com/ast5110_course/ast5110/-/blob/master/ex_4a.ipynb">Ex 4a</a></p>
+<section id="diffusion-term">
+<h3>3. Diffusion term<a class="headerlink" href="#diffusion-term" title="Permalink to this headline">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\frac{\partial u}{\partial t} = - \frac{\partial ^2 G(u)}{\partial x^2}  \tag{6}\]</div>
+<p>For instance, for a 2nd order cell-centered scheme, the Courant condition is:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dt\, G'(u)}{dx^2} \leq 1 \tag{7}\]</div>
+<p>i.e., the Courant condition for the diffusive term in expression (2) is:</p>
+<div class="math notranslate nohighlight">
+\[\frac{dt\, c}{dx^2} \leq 1 \tag{8}\]</div>
+<hr class="docutils" />
+<p>Important: to solve the full eq. (2), it is required to perform the von Neumann instability of the entire expression unless each term is solved using an [operation splitting](Operator splitting).</p>
+<hr class="docutils" />
+<p>Note that the stability criteria depend differently on the grid size (<span class="math notranslate nohighlight">\(dx\)</span>) in these three terms. Consequently, the maximum time-step size in which the method is stable is invariant with <span class="math notranslate nohighlight">\(dx\)</span> for a source term. On the contrary, the maximum time-step will decrease linearly with <span class="math notranslate nohighlight">\(dx\)</span> for the advection term and quadratically with a diffusive term. As a result, a diffusive term is highly stiff, and increasing the spatial resolution largely decreases the step size. See the exercise <a class="reference external" href="https://gitlab.com/ast5110_course/ast5110/-/blob/master/ex_5a.ipynb">Ex 5a</a> for further details.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./AST5110.wiki"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Errors.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Errors</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Examples-of-hyperbolic-numerical-schemes.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Examples of hyperbolic numerical schemes</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Juan Martinez-Sykora & Avijeet Prasad<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
